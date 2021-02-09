@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height * 0.13,
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 35,
+                top: 50,
                 left: 5,
                 right: 5,
               ),
@@ -223,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 child: GestureDetector(
                   onTap: () {
-                    print("=-=-=> ${movies[index].seats.toString()}");
+                    print("--->movies[index].seats.toString()}");
                     Navigator.pushNamed(context, MovieDetails.id,
                         arguments: movies[index]);
                   },

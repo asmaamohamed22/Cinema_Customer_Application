@@ -34,7 +34,6 @@ class _MovieDetailsState extends State<MovieDetails> {
     Movie movie = ModalRoute.of(context).settings.arguments;
     print("---> $userId");
 
-    // movie.seats.map(){}).toList();
     movie.seats = movie.seats.map((seat) {
       print("-=-=> ${seat.toString()}");
       if (seat['userId'] == userId) {
@@ -48,7 +47,7 @@ class _MovieDetailsState extends State<MovieDetails> {
       }
     }).toList();
 
-    print("movie seats =-=> ${movie.seats}");
+    print("movie seats --> ${movie.seats}");
     GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
@@ -85,7 +84,7 @@ class _MovieDetailsState extends State<MovieDetails> {
               ),
               Container(
                 width: double.infinity,
-                height: size.height * 0.67,
+                height: size.height * 0.75,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -173,7 +172,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                       Text(
                         movie.pDescription,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                       SizedBox(
@@ -242,18 +241,17 @@ class _MovieDetailsState extends State<MovieDetails> {
                         ],
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 25,
                       ),
                       Expanded(
                         child: GridView.builder(
-                          // physics: NeverScrollableScrollPhysics(),
                           primary: false,
                           gridDelegate:
                               new SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 9,
+                            crossAxisCount: 8,
                             childAspectRatio: 1,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 3,
+                            mainAxisSpacing: 3,
                           ),
                           itemCount: movie.seats.length,
                           shrinkWrap: true,
@@ -301,6 +299,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                                     color: Colors.black,
                                   ),
                                 ),
+                                child: Center(child: Text('${index + 1}')),
                               ),
                             );
                           },
@@ -312,7 +311,7 @@ class _MovieDetailsState extends State<MovieDetails> {
               ),
               MyButton(
                 onPressed: () async {
-                  print("new movies seats =-=> ${movie.seats}");
+                  print("new movies seats ---> ${movie.seats}");
 
                   List<Map<String, dynamic>> newSeatsList = [];
 
@@ -331,7 +330,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                     }
                   });
 
-                  print("after update movies seats =-=> $newSeatsList");
+                  print("after update movies seats --> $newSeatsList");
 
                   _store.updateMovie(
                       seatsNum: 0, newSeats: newSeatsList, movieId: movie.pId);
@@ -339,11 +338,11 @@ class _MovieDetailsState extends State<MovieDetails> {
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
 
-                  print("=-=---------------=> ${prefs.getString('userId')}");
+                  print("--> ${prefs.getString('userId')}");
 
                   Map<String, dynamic> userData = await _store.getUserData(
                       userId: prefs.getString('userId'));
-                  print("=-=-=> movies list =-=> $userData");
+                  print("movies list -> $userData");
                   if (userData != null) {
                     _store
                         .updateUserData(
@@ -416,9 +415,9 @@ class _MovieDetailsState extends State<MovieDetails> {
                               '$numOfBookedSeats seats has been booked successfully, available seats now ${newSeatsList.where((item) => item['isReserved'] == 0).length.toString()}',
                           movieId: movie.pId)
                       .then((data) {
-                    print("---------- ${data?.toString()}");
+                    print("--> ${data?.toString()}");
                   }).catchError((err) {
-                    print("erererere>>> $err");
+                    print("-> $err");
                   });
                 },
                 name: 'Booking Now',

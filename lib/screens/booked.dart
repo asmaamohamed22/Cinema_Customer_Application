@@ -35,7 +35,7 @@ class _BookingMoviesState extends State<BookingMovies> {
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.white,
-        title: Text('MyBooking'),
+        title: Text('My Booking'),
       ),
       body: FutureBuilder<DocumentSnapshot>(
           future: _store.getUserBookedMovies(userId: userId),
